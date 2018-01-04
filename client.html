@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        html {
+            -ms-text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%;
+            height: 100%;
+        }
+
+        body {
+            -webkit-font-smoothing: antialiased;
+            line-height: 1.6;
+            font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+            height: 100%;
+        }
+
+        input,
+        textarea,
+        button,
+        a {
+            outline: 0;
+        }
+
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        p,
+        ul,
+        ol,
+        dl,
+        dd,
+        fieldset,
+        textarea {
+            margin: 0;
+        }
+
+        fieldset,
+        legend,
+        textarea,
+        input {
+            padding: 0;
+        }
+
+        ul,
+        ol {
+            padding-left: 0;
+            list-style-type: none;
+        }
+
+        a img,
+        fieldset {
+            border: 0;
+        }
+
+        article,
+        aside,
+        details,
+        figcaption,
+        figure,
+        footer,
+        header,
+        hgroup,
+        main,
+        nav,
+        section,
+        summary {
+            display: block;
+        }
+
+        audio,
+        canvas,
+        video {
+            display: inline-block;
+        }
+
+        audio:not([controls]) {
+            display: none;
+            height: 0;
+        }
+
+        pre {
+            margin: 0;
+            font-family: inherit;
+            font-size: inherit;
+            white-space: pre-wrap;
+            word-break: initial;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        svg:not(:root) {
+            overflow: hidden;
+        }
+
+        figure {
+            margin: 0;
+        }
+
+        button,
+        input,
+        select,
+        textarea {
+            font-family: inherit;
+            font-size: 100%;
+            margin: 0;
+        }
+
+        button,
+        select {
+            text-transform: none;
+        }
+
+        button,
+        html input[type=button],
+        input[type=reset],
+        input[type=submit] {
+            cursor: pointer;
+            -webkit-appearance: button;
+        }
+
+        button[disabled],
+        html input[disabled] {
+            cursor: default;
+        }
+
+        input[type=checkbox],
+        input[type=radio] {
+            box-sizing: border-box;
+            padding: 0;
+        }
+
+        input[type=search] {
+            box-sizing: content-box;
+            -moz-box-sizing: content-box;
+            -webkit-appearance: textfield;
+            -webkit-box-sizing: content-box;
+        }
+
+        input[type=search]::-webkit-search-cancel-button,
+        input[type=search]::-webkit-search-decoration {
+            -webkit-appearance: none;
+        }
+
+        button::-moz-focus-inner,
+        input::-moz-focus-inner {
+            border: 0;
+            padding: 0;
+        }
+
+        textarea {
+            overflow: auto;
+            vertical-align: top;
+            resize: none;
+        }
+
+        input:-webkit-autofill,
+        textarea:-webkit-autofill,
+        select:-webkit-autofill {
+            box-shadow: inset 0 0 0 1000px #fff;
+            -moz-box-shadow: inset 0 0 0 1000px #fff;
+            -webkit-box-shadow: inset 0 0 0 1000px #fff;
+        }
+
+        select {
+            border-radius: 0;
+            -webkit-border-radius: 0;
+        }
+
+        img {
+            vertical-align: middle;
+        }
+
+        a.btn {
+            text-decoration: none;
+        }
+
+        .btn {
+            display: inline-block;
+            border-radius: 4px;
+            -moz-border-radius: 4px;
+            -webkit-border-radius: 4px;
+            padding: 2px 4px;
+            font-size: 14px;
+            height: 20px;
+            line-height: 20px;
+            margin-top: 3px;
+            cursor: pointer;
+        }
+
+        .btn_send {
+            background-color: #5CB700;
+            color: white;
+            display: none;
+        }
+
+        .clearfix:after {
+            content: ' ';
+            visibility: hidden;
+            display: block;
+            height: 0;
+            clear: both;
+        }
+
+        .main {
+            height: 100%;
+        }
+
+        .main_inner {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .panel {
+            position: relative;
+            width: 0px;
+            height: 100%;
+            float: left;
+            background: #2e3238;
+        }
+
+        /*信息*/
+
+        .box {
+            position: relative;
+            background-color: #eee;
+            height: 100%;
+            overflow: hidden;
+            display: flex;
+            flex-flow: column;
+        }
+
+        .box_hd {
+            height: 0px;
+        }
+
+        .box_bd {
+            padding: 10px 10px 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+            flex: 1;
+        }
+
+        .message {
+            margin-bottom: 16px;
+            float: left;
+            width: 100%;
+        }
+
+        .message.me {
+            float: right;
+            text-align: right;
+            clear: right;
+        }
+
+        .message .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 2px;
+            -moz-border-radius: 2px;
+            -webkit-border-radius: 2px;
+            float: left;
+            cursor: pointer;
+        }
+
+        .message.me .avatar {
+            float: right;
+        }
+
+        .message .nickname {
+            font-weight: 400;
+            padding-left: 10px;
+            font-size: 12px;
+            height: 22px;
+            line-height: 24px;
+            color: #4f4f4f;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            word-wrap: normal;
+        }
+
+        .message .nickname .time {
+            margin-left: 10px;
+        }
+
+        .message.me .nickname {
+            padding-right: 10px;
+        }
+
+        .message.me .nickname .time {
+            margin-right: 10px;
+        }
+
+        .message .content {
+            overflow: hidden;
+        }
+
+        .bubble {
+            max-width: 70%;
+            min-height: 1em;
+            display: inline-block;
+            vertical-align: top;
+            position: relative;
+            text-align: left;
+            font-size: 14px;
+            border-radius: 3px;
+            -moz-border-radius: 3px;
+            -webkit-border-radius: 3px;
+            margin: 0 10px;
+        }
+
+        .bubble.bubble_default {
+            background-color: #fff;
+        }
+
+        .bubble:before,
+        .bubble:after {
+            position: absolute;
+            top: 14px;
+            border: 6px solid transparent;
+            content: " ";
+        }
+
+        .bubble.left:before,
+        .bubble.left:after {
+            right: 100%;
+        }
+
+        .bubble.left:after {
+            border-right-color: #FFF;
+            border-right-width: 4px;
+        }
+
+        .bubble.right:before,
+        .bubble.right:after {
+            left: 100%;
+        }
+
+        .bubble.right:after {
+            border-left-color: #FFF;
+        }
+
+        .bubble.bubble_primary {
+            background-color: #b2e281;
+        }
+
+        .bubble.bubble_primary.left:after {
+            border-right-color: #b2e281;
+            border-right-width: 4px;
+        }
+
+        .bubble.bubble_primary.right:after {
+            border-left-color: #b2e281;
+            border-left-width: 4px;
+        }
+
+        .bubble.bubble_primary.right.arrow_primary:before {
+            border-left-color: #b2e281;
+            border-left-width: 4px;
+        }
+
+        .bubble.bubble_primary.right.arrow_primary:after {
+            border-left-color: #fff;
+            border-left-width: 4px;
+            margin-left: -2px;
+        }
+
+        .bubble.no_arrow {
+            background-color: transparent;
+        }
+
+        .bubble.no_arrow:before,
+        .bubble.no_arrow:after {
+            display: none;
+        }
+
+        .bubble_cont {
+            word-wrap: break-word;
+            word-break: break-all;
+            min-height: 25px;
+        }
+
+        .bubble_cont img {
+            vertical-align: middle;
+        }
+
+        .bubble_cont .plain {
+            padding: 9px 13px;
+        }
+
+        .bubble_cont .picture {
+            border-radius: 4px;
+            -moz-border-radius: 4px;
+            -webkit-border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .bubble_cont .picture img {
+            display: block;
+            cursor: pointer;
+            max-width: 100%;
+        }
+
+        .box_ft {
+            background-color: white;
+            padding: 0 6px;
+            border-top: 1px solid #ccc;
+        }
+
+        .box_ft_hd {
+            display: flex;
+        }
+
+        .box_ft_hd .eaitWrap {
+            flex: 1;
+            padding-bottom: 5px;
+        }
+
+        .box_ft_hd .editArea {
+            overflow-y: auto;
+            overflow-x: hidden;
+            outline: 0;
+            border-bottom: 1px solid #ababab;
+            font-size: 14px;
+            padding: 0 5px;
+            max-height: 2em;
+            line-height: 1.4;
+            margin-top: 5px;
+        }
+
+        .web_wechat_face {
+            background: url(img/ico.png) 0 -805px;
+            width: 30px;
+            height: 30px;
+            vertical-align: middle;
+            display: inline-block;
+        }
+
+        .web_wechat_pic {
+            background: url(img/ico.png) 0 -1638px;
+            width: 30px;
+            height: 30px;
+            vertical-align: middle;
+            display: inline-block;
+            margin: 0px 3px;
+        }
+
+        .exp_hd {
+            overflow: hidden;
+            background-color: #F2F2F2;
+        }
+
+        .exp_hd_item {
+            float: left;
+        }
+
+        .exp_hd_item.active {
+            background-color: #fff;
+            border-top-left-radius: 4px;
+            -moz-border-radius-topleft: 4px;
+            -webkit-border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+            -moz-border-radius-topright: 4px;
+            -webkit-border-top-right-radius: 4px;
+        }
+
+        .exp_hd_item a {
+            display: block;
+            text-decoration: none;
+            color: #333;
+            padding: 5px 10px;
+            font-size: 14px;
+        }
+
+        .exp_bd {
+            overflow: auto;
+            background-color: #fff;
+        }
+
+        .exp_cont {
+            display: none;
+            height: 200px;
+            padding: 10px 0;
+            min-height: 50px;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        .exp_cont.active {
+            display: block;
+        }
+
+        .eaitWrap .qqface {
+            border: 0;
+        }
+
+        .onOffLine {
+            margin-bottom: 16px;
+            text-align: center;
+            width: 100%;
+        }
+
+        /*信息end*/
+
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            border-radius: 3px;
+            -moz-border-radius: 3px;
+            -webkit-border-radius: 3px;
+            background-color: #c3c3c3;
+        }
+
+        ::-webkit-scrollbar-track {
+            background-color: transparent;
+        }
+    </style>
+</head>
+
+<body>
+<!-- 输入昵称界面 -->
+<div id="loginDiv"
+     style="position: absolute;width:400px;height:200px;left:50%;top:50%;margin-left:-200px;margin-top:-100px;">
+    <h1>请输入昵称:</h1>
+    <input type="text" id="nameInput"/>
+    <input type="button" value="确定" id="certainInput" onclick="goContent()"/>
+</div>
+<!-- 聊天主界面 -->
+<div id="main" class="main" style="display: none;">
+    <div class="main_inner clearfix">
+        <div class="panel"></div>
+        <div id="chatArea" class="box chat">
+            <div class="box_hd"></div>
+            <div class="box_bd" id="messageList">
+               <!-- &lt;!&ndash;我的发言&ndash;&gt;
+                <div class="message me">
+                    <div class="content">
+                        <div class="nickname"><span class="time">10:10:08</span></div>
+                        <div class="bubble bubble_primary right">
+                            <div class="bubble_cont">
+                                <div class="plain">
+                                    <pre>你欠我一顿大餐你欠我一顿大餐你欠我一顿大餐你欠我一顿大餐你欠我一顿大餐你欠我一顿大餐你欠我一顿大餐你欠我一顿大餐你欠我一顿大餐你欠我一顿大餐你欠我一顿大餐</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                &lt;!&ndash;他人的发言&ndash;&gt;
+                <div class="message">
+                    &lt;!&ndash;  <img class="avatar" src="images/lyp.jpg" />&ndash;&gt;
+                    <div class="content">
+                        <div class="nickname">友萍<span class="time">10:12:20</span></div>
+                        <div class="bubble bubble_default left">
+                            <div class="bubble_cont">
+                                <div class="plain">
+                                    <pre>(⊙o⊙)…好吧</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                &lt;!&ndash;上线下线通知&ndash;&gt;
+                <div class="onOffLine">
+                    <span>winward上线了2018 01-04 12:26</span>
+                </div>-->
+            </div>
+            <div class="box_ft">
+                <div class="box_ft_hd">
+                    <div class="eaitWrap">
+                        <pre id="editArea" class="editArea" contenteditable="true"></pre>
+                    </div>
+                    <a href="javascript:;" class="btn" id="btn_send">发送</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+    /* 封装 WebSocket 实例化的方法  */
+    var CreateWebSocket = (function () {
+        return function (urlValue) {
+            if (window.WebSocket) return new WebSocket(urlValue);
+            if (window.MozWebSocket) return new MozWebSocket(urlValue);
+            return false;
+        }
+    })();
+
+    var webSocket = null;
+    var name = null;
+    var message = null;
+    var messageListEl = document.getElementById('messageList');
+
+    /*跳转到内容界面*/
+    function goContent() {
+        name = document.getElementById('nameInput').value;
+        if (name && name != '') {
+            document.getElementById('loginDiv').style.display = 'none';
+            document.getElementById('main').style.display = 'block';
+            /* 实例化 WebSocket 连接对象, 地址为 ws 协议 */
+            webSocket = CreateWebSocket("ws://localhost:8200");
+            /* 连接到服务端时*/
+            /* type为消息类型*/
+            webSocket.onopen = function () {
+                webSocket.send(JSON.stringify({name: name, type: 'goOnline', time: new Date().toLocaleString()}));
+            };
+
+            /* 接收到服务端的消息时 */
+            webSocket.onmessage = function (msg) {
+                console.log(JSON.parse(msg.data));
+                message = JSON.parse(msg.data);
+                if (message.type == 'goOnline') {
+                    messageListEl.innerHTML += '<div class="onOffLine">\n' +
+                        '                           <span>'+message.name+'上线了'+ message.time + '</span>\n' +
+                        '                       </div>';
+                }
+                else if(message.type == 'chat'){
+                    if(message.name == name){
+                        messageListEl.innerHTML += '<div class="message me">\n' +
+                            '                    <div class="content">\n' +
+                            '                        <div class="nickname"><span style="font-size: 20px;">'+message.name+'</span><span class="time">'+message.time+'</span></div>\n' +
+                            '                        <div class="bubble bubble_primary right">\n' +
+                            '                            <div class="bubble_cont">\n' +
+                            '                                <div class="plain">\n' +
+                            '                                    <pre>'+message.content+'</pre>\n' +
+                            '                                </div>\n' +
+                            '                            </div>\n' +
+                            '                        </div>\n' +
+                            '                    </div>\n' +
+                            '                </div>';
+                    }
+                    else{
+                        messageListEl.innerHTML += ' <div class="message">\n' +
+                            '                    <div class="content">\n' +
+                            '                        <div class="nickname"><span style="font-size: 20px;">'+message.name+'</span><span class="time">'+message.time+'</span></div>\n' +
+                            '                        <div class="bubble bubble_default left">\n' +
+                            '                            <div class="bubble_cont">\n' +
+                            '                                <div class="plain">\n' +
+                            '                                    <pre>'+message.content+'</pre>\n' +
+                            '                                </div>\n' +
+                            '                            </div>\n' +
+                            '                        </div>\n' +
+                            '                    </div>\n' +
+                            '                </div>';
+                    }
+                }
+
+            };
+
+            /* 关闭时 */
+            webSocket.onclose = function () {
+                console.log("服务端关闭连接");
+            };
+        }
+    }
+
+    /* 发送消息 */
+    document.getElementById("btn_send").onclick = function () {
+        var str = document.getElementById("editArea").innerText;
+        if(str && str != ''){
+            webSocket.send(JSON.stringify({name: name, type: 'chat', content: str, time: new Date().toLocaleString()}));
+            document.getElementById("editArea").innerText = '';
+        }
+    }
+
+
+</script>
+
+</html>
