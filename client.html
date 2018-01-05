@@ -227,7 +227,6 @@
             float: left;
             background: #2e3238;
         }
-
         /*信息*/
 
         .box {
@@ -389,10 +388,9 @@
             word-break: break-all;
             min-height: 25px;
         }
-
-        .bubble_cont img {
+        /* .bubble_cont img {
             vertical-align: middle;
-        }
+        } */
 
         .bubble_cont .plain {
             padding: 9px 13px;
@@ -405,12 +403,11 @@
             overflow: hidden;
             position: relative;
         }
-
-        .bubble_cont .picture img {
+        /* .bubble_cont .picture img {
             display: block;
             cursor: pointer;
             max-width: 100%;
-        }
+        } */
 
         .box_ft {
             background-color: white;
@@ -510,43 +507,41 @@
             text-align: center;
             width: 100%;
         }
-
         /*信息end*/
 
-        ::-webkit-scrollbar {
+         ::-webkit-scrollbar {
             width: 6px;
             height: 6px;
         }
 
-        ::-webkit-scrollbar-thumb {
+         ::-webkit-scrollbar-thumb {
             border-radius: 3px;
             -moz-border-radius: 3px;
             -webkit-border-radius: 3px;
             background-color: #c3c3c3;
         }
 
-        ::-webkit-scrollbar-track {
+         ::-webkit-scrollbar-track {
             background-color: transparent;
         }
     </style>
 </head>
 
 <body>
-<!-- 输入昵称界面 -->
-<div id="loginDiv"
-     style="position: absolute;width:400px;height:200px;left:50%;top:50%;margin-left:-200px;margin-top:-100px;">
-    <h1>请输入昵称:</h1>
-    <input type="text" id="nameInput"/>
-    <input type="button" value="确定" id="certainInput" onclick="goContent()"/>
-</div>
-<!-- 聊天主界面 -->
-<div id="main" class="main" style="display: none;">
-    <div class="main_inner clearfix">
-        <div class="panel"></div>
-        <div id="chatArea" class="box chat">
-            <div class="box_hd"></div>
-            <div class="box_bd" id="messageList">
-               <!-- &lt;!&ndash;我的发言&ndash;&gt;
+    <!-- 输入昵称界面 -->
+    <div id="loginDiv" style="position: absolute;width:400px;height:200px;left:50%;top:50%;margin-left:-200px;margin-top:-100px;">
+        <h1>请输入昵称:</h1>
+        <input type="text" id="nameInput" />
+        <input type="button" value="确定" id="certainInput" onclick="goContent()" />
+    </div>
+    <!-- 聊天主界面 -->
+    <div id="main" class="main" style="display: none;">
+        <div class="main_inner clearfix">
+            <div class="panel"></div>
+            <div id="chatArea" class="box chat">
+                <div class="box_hd"></div>
+                <div class="box_bd" id="messageList">
+                    <!-- &lt;!&ndash;我的发言&ndash;&gt;
                 <div class="message me">
                     <div class="content">
                         <div class="nickname"><span class="time">10:10:08</span></div>
@@ -577,18 +572,18 @@
                 <div class="onOffLine">
                     <span>winward上线了2018 01-04 12:26</span>
                 </div>-->
-            </div>
-            <div class="box_ft">
-                <div class="box_ft_hd">
-                    <div class="eaitWrap">
-                        <pre id="editArea" class="editArea" contenteditable="true"></pre>
+                </div>
+                <div class="box_ft">
+                    <div class="box_ft_hd">
+                        <div class="eaitWrap">
+                            <pre id="editArea" class="editArea" contenteditable="true" onkeydown="type(event)"></pre>
+                        </div>
+                        <a href="javascript:;" class="btn" id="btn_send">发送</a>
                     </div>
-                    <a href="javascript:;" class="btn" id="btn_send">发送</a>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </body>
 <script type="text/javascript">
     /* 封装 WebSocket 实例化的方法  */
@@ -616,41 +611,48 @@
             /* 连接到服务端时*/
             /* type为消息类型*/
             webSocket.onopen = function () {
-                webSocket.send(JSON.stringify({name: name, type: 'goOnline', time: new Date().toLocaleString()}));
+                webSocket.send(JSON.stringify({
+                    name: name,
+                    type: 'goOnline',
+                    time: new Date().toLocaleString()
+                }));
             };
 
             /* 接收到服务端的消息时 */
             webSocket.onmessage = function (msg) {
-                console.log(JSON.parse(msg.data));
                 message = JSON.parse(msg.data);
                 if (message.type == 'goOnline') {
                     messageListEl.innerHTML += '<div class="onOffLine">\n' +
-                        '                           <span>'+message.name+'上线了'+ message.time + '</span>\n' +
+                        '                           <span>' + message.name + '上线了' + message.time + '</span>\n' +
                         '                       </div>';
-                }
-                else if(message.type == 'chat'){
-                    if(message.name == name){
+                } else if (message.type == 'goOutline') {
+                    messageListEl.innerHTML += '<div class="onOffLine">\n' +
+                        '                           <span>' + message.name + '下线了' + message.time + '</span>\n' +
+                        '                       </div>';
+                } else if (message.type == 'chat') {
+                    if (message.name == name) {
                         messageListEl.innerHTML += '<div class="message me">\n' +
                             '                    <div class="content">\n' +
-                            '                        <div class="nickname"><span style="font-size: 20px;">'+message.name+'</span><span class="time">'+message.time+'</span></div>\n' +
+                            '                        <div class="nickname"><span style="font-size: 20px;">' +
+                            message.name + '</span><span class="time">' + message.time + '</span></div>\n' +
                             '                        <div class="bubble bubble_primary right">\n' +
                             '                            <div class="bubble_cont">\n' +
-                            '                                <div class="plain">\n' +
-                            '                                    <pre>'+message.content+'</pre>\n' +
+                            '<div class="plain">\n' +
+                            '                                    <pre>' + message.content + '</pre>\n' +
                             '                                </div>\n' +
                             '                            </div>\n' +
                             '                        </div>\n' +
                             '                    </div>\n' +
                             '                </div>';
-                    }
-                    else{
+                    } else {
                         messageListEl.innerHTML += ' <div class="message">\n' +
                             '                    <div class="content">\n' +
-                            '                        <div class="nickname"><span style="font-size: 20px;">'+message.name+'</span><span class="time">'+message.time+'</span></div>\n' +
+                            '                        <div class="nickname"><span style="font-size: 20px;">' +
+                            message.name + '</span><span class="time">' + message.time + '</span></div>\n' +
                             '                        <div class="bubble bubble_default left">\n' +
                             '                            <div class="bubble_cont">\n' +
-                            '                                <div class="plain">\n' +
-                            '                                    <pre>'+message.content+'</pre>\n' +
+                            '<div class="plain">\n' +
+                            '                                    <pre>' + message.content + '</pre>\n' +
                             '                                </div>\n' +
                             '                            </div>\n' +
                             '                        </div>\n' +
@@ -658,26 +660,56 @@
                             '                </div>';
                     }
                 }
+                messageListEl.scrollTo(0, messageListEl.scrollHeight);
 
             };
 
             /* 关闭时 */
             webSocket.onclose = function () {
-                console.log("服务端关闭连接");
+                webSocket.send(JSON.stringify({
+                    name: name,
+                    type: 'goOutline',
+                    time: new Date().toLocaleString()
+                }));
             };
+
+            /* 异常时 */
+            webSocket.onerror = function (res) {
+                console.log(res);
+            }
         }
     }
 
     /* 发送消息 */
     document.getElementById("btn_send").onclick = function () {
-        var str = document.getElementById("editArea").innerText;
-        if(str && str != ''){
-            webSocket.send(JSON.stringify({name: name, type: 'chat', content: str, time: new Date().toLocaleString()}));
+        send();
+    }
+
+    function type(e) {
+        if (e.keyCode == 13) {
+            send();
             document.getElementById("editArea").innerText = '';
         }
     }
 
+    function send() {
+        var str = ClearBr(document.getElementById("editArea").innerText);
+        if (str && str != '') {
+            webSocket.send(JSON.stringify({
+                name: name,
+                type: 'chat',
+                content: str,
+                time: new Date().toLocaleString()
+            }));
+        }
+    }
 
+    //去除换行 
+    function ClearBr(key) {
+        key = key.replace(/<\/?.+?>/g, "");
+        key = key.replace(/[\r\n]/g, "");
+        return key;
+    }
 </script>
 
 </html>
