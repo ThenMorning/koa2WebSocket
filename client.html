@@ -621,6 +621,8 @@
             /* 接收到服务端的消息时 */
             webSocket.onmessage = function (msg) {
                 message = JSON.parse(msg.data);
+                console.log(message);
+
                 if (message.type == 'goOnline') {
                     messageListEl.innerHTML += '<div class="onOffLine">\n' +
                         '                           <span>' + message.name + '上线了' + message.time + '</span>\n' +
@@ -688,7 +690,6 @@
     function type(e) {
         if (e.keyCode == 13) {
             send();
-            document.getElementById("editArea").innerText = '';
         }
     }
 
@@ -701,6 +702,7 @@
                 content: str,
                 time: new Date().toLocaleString()
             }));
+            document.getElementById("editArea").innerText = '';
         }
     }
 
